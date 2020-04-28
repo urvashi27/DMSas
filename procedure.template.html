@@ -1,0 +1,326 @@
+<div fxLayout="column wrap" style="padding:15px;" fxLayoutGap="1em" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+  <div>
+    <div fxLayout="row">
+      <div fxlayout="column" fxFlex="70">
+        <span class="title">Create Procedure</span><br>
+
+      </div>
+      <div fxLayout="column" fxFlex="30">
+        <div fxLayout="row" fxLayoutGap="1em">
+          <div fxLayout="column">
+            <button mat-flat-button style="background-color:grey">cancel</button>
+          </div>
+          <div fxLayout="column">
+            <button mat-flat-button color="warn">draft</button>
+          </div>
+          <div fxlayout="column">
+            <button mat-flat-button style="background-color:green" [disabled]="form.invalid" [ngClass]="{&apos;A&apos;: form.invalid}" (click)="addProce()">submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="column wrap" style="height:100%;width:100%" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+    <div>
+      <!-- <div fxLayout="column wrap" style="width:100%" fxLayoutGap="20px" fxLayoutAlign="space-between stretch" [fxShow]="true" [fxHide]="false" [formGroup]="form"> -->
+
+      <div fxLayout="row wrap" style="height:75vh;width:100%" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+        <div [formGroup]="form" fxLayout="column wrap" fxFlex="65" style="padding:10px;" fxLayoutGap="1em" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+          <div formArrayName="procedure" *ngFor="let form of form.get(&apos;procedure&apos;).controls;let i = index;" fxLayout="row wrap" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+            <mat-card [formGroupName]="i">
+              <mat-card-content>
+                <div fxLayout="row wrap" style="height: 48px;margin-bottom: 1em;" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                  <div fxLayout="row" style="width:100%">
+                    <div flexLayout="column" fxFlex="50" style="margin-right:1em">
+                      <mat-form-field appearance="outline" style="width: 100%;">
+                        <input formControlName="title" matInput placeholder="procedure title">
+                        <mat-label>Procedure Title</mat-label>
+                        <mat-error *ngIf="form.controls?.title?.errors?.required">Title field is mandatory!</mat-error>
+                        <mat-error *ngIf="form.controls?.title?.errors?.pattern">Please enter valid title name</mat-error>
+                        <mat-error *ngIf="form.controls?.title?.errors?.maxLength">Title should not be 500 characters</mat-error>
+                        <!-- <div *ngIf="addProce.title.errors.required">title is required</div> -->
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex="50">
+                      <mat-form-field appearance="outline">
+                        <mat-label>ID</mat-label>
+                        <mat-error *ngIf="form.controls?.id?.errors?.pattern">Id should start with prefix LOTO:2</mat-error>
+                        <mat-error *ngIf="form.controls?.id?.errors?.required">Id is required</mat-error>
+                        <input matInput type="text" formControlName="id" placeholder="procedure ID">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div fxLayout="row wrap" style="margin-bottom:1em;" fxLayoutAlign="space-evenly stretch" [fxShow]="true" [fxHide]="false">
+                  <!-- green bar   -->
+                  <div fxLayout="column wrap" style="background-color: #6cb33f;" fxFlex="10" fxLayoutGap="1em" fxLayoutAlign="center center" [fxShow]="true" [fxHide]="false">
+                    <div fxLayout="row wrap" fxLayoutAlign="center center" [fxShow]="true" [fxHide]="false">
+                      <mat-icon>dehaze</mat-icon>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="center center" [fxShow]="true" [fxHide]="false">
+                      <mat-icon>filter_none</mat-icon>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="center center" [fxShow]="true" [fxHide]="false">
+                      <mat-icon>close</mat-icon>
+                    </div>
+                  </div>
+                  <div fxLayout="column wrap" style="padding: 15px;background-color:#b0b0b01f;width:95%" fxFlex="90" fxLayoutGap="1em" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-around stretch" [fxShow]="true" [fxHide]="false">
+                      <div fxLayout="column wrap" fxFlex="50" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                        <div fxLayout="row wrap" fxLayoutGap="1em" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                          <div fxLayout="column wrap" fxFlex="30" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                            <div style="width:100%">
+                              <!-- hazard dropdown -->
+                              <mat-form-field appearance="outline" style="width:100%">
+                                <mat-label>hazard</mat-label>
+                                <mat-error *ngIf="form.controls?.hazard?.errors?.required">Select one option</mat-error>
+
+                                <select formControlName="hazard" matNativeControl required>
+                                  <option value="Thermal">Thermal</option>
+                                  <option value="Corn Receiving">Corn Receiving</option>
+                                  <option value="Wet starch">Wet starch</option>
+                                  <option value="Dry starch">Dry starch</option>
+
+                                </select>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <!-- men -->
+                          <div fxLayout="column wrap" fxFlex="30" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                            <div style="width:100%">
+                              <mat-form-field appearance="outline" style="width:100%">
+                                <mat-label>Men</mat-label>
+                                <mat-error *ngIf="form.controls?.men?.errors?.required">Men required</mat-error>
+                                <mat-error *ngIf="form.controls?.men?.errors?.pattern">Please enter numeric values</mat-error>
+                                <mat-error *ngIf="form.controls?.men?.errors?.maxlength">Men can be only 4 digits</mat-error>
+                                <input type="text" formControlName="men" matInput maxlength="4">
+
+
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <!-- Locks -->
+                          <div fxLayout="column wrap" fxFlex="30" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                            <div style="width:100%">
+                              <mat-form-field appearance="outline" style="width:100%">
+                                <mat-label>Locks</mat-label>
+                                <mat-error *ngIf="form.controls?.locks?.errors?.required">Please enter locks</mat-error>
+                                <mat-error *ngIf="form.controls?.locks?.errors?.pattern">locks should be numeric</mat-error>
+                                <mat-error *ngIf="form.controls?.locks?.errors?.maxLength">locks should be 4 digits</mat-error>
+                                <input formControlName="locks" matInput placeholder="2" maxlength="4">
+
+
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div fxLayout="column wrap" fxFlex="50" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                        <div fxLayout="row wrap" style="width:100%" fxLayoutGap="1em" fxLayoutAlign="space-evenly stretch" [fxShow]="true" [fxHide]="false">
+                          <div fxLayout="column wrap" fxFlex="40" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                            <div style="width:100%">
+                              <mat-form-field appearance="outline" style="width:100%">
+                                <mat-label>Lockout state</mat-label>
+                                <mat-error *ngIf="form.controls?.lockoutstate?.errors?.required">Please select one option</mat-error>
+                                <select formControlName="lockoutstate" matNativeControl required>
+                                  <option value="closed">closed</option>
+                                  <option value="open">Open</option>
+
+                                </select>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div fxLayout="column wrap" fxFlex="40" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                            <div style="width:100%">
+                              <mat-form-field appearance="outline" style="width:100%">
+                                <mat-label>Normal state</mat-label>
+                                <mat-error *ngIf="form.controls?.normalstate?.errors?.required">Normal state is required</mat-error>
+                                <select formControlName="normalstate" matNativeControl required>
+                                  <option value="open">Open</option>
+                                  <option value="closed">closed</option>
+
+                                </select>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxLayout="row wrap" style="width:100%" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                      <div style="width:100%">
+                        <mat-form-field appearance="outline" style="width:100%;background-color:white;">
+                          <mat-label></mat-label>
+
+                          <textarea formControlName="text" matInput placeholder="Write Information here......."></textarea>
+                          <mat-error *ngIf="form.controls?.text?.errors?.required">Please enter information</mat-error>
+                          <mat-error *ngIf="form.controls?.text?.errors?.pattern">Please enter valid information</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div>
+                      <mat-form-field appearance="outline" style="width:100%;background-color:white">
+                        <div fxLayout="row wrap" style="background-color: white;" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                          <div fxLayout="column wrap" fxFlex="80" fxLayoutAlign="center stretch" [fxShow]="true" [fxHide]="false">
+
+                            <input formControlName="image" style="height: 100%;" matInput placeholder="upload images">
+
+
+                          </div>
+                          <div fxLayout="column wrap" fxFlex="20" fxLayoutAlign="end end" [fxShow]="true" [fxHide]="false">
+
+                            <div fxLayout="row " fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                              <div style="width:100%;">
+
+                                <div style="height:50px" fxLayout="row" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false" (click)="fileInput.click()" matTooltip="Upload">
+                                  <input type="file" accept=".png,.jpg,.jpeg" #fileInput style="display:none;" (change)="handleFileInput($event)" multiple>
+
+                                  <!-- <div fxLayout="column" fxFlex="100" fxLayoutAlign="center center" [fxShow]="true" [fxHide]="false"> -->
+                                  <div style="padding:15px;background-color:lightgrey;">Upload</div>
+                                  <!-- </div> -->
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" style="border:1px dotted lightgrey;height: 60px">
+                      <img *ngFor="let urls of myFiles" src="{{myFiles}}" style="width:30px;height:30px;margin-right:1em;">
+                    </div>
+                    <span *ngIf="form.controls?.image?.errors?.required">Maximum limit is 15 images</span>
+                  </div>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="center center" [fxShow]="true" [fxHide]="false">
+                  <button mat-button style="background-color:lightgrey;" (click)="add()">Add Procedure</button></div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <mat-card>
+            <mat-card-content align="left">
+              <div>
+                Revision Summary</div>
+            </mat-card-content>
+
+
+          </mat-card>
+        </div>
+
+
+        <!-- vertical form -->
+        <div [formGroup]="verticalForm" fxLayout="column wrap" style="width:100%;padding: 10px; " fxFlex="30" fxLayoutGap="1em" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+          <mat-card>
+            <mat-card-content>
+
+              <div fxLayout="column wrap" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                <div>
+                  <mat-form-field appearance="outline" style="width:100%">
+                    <mat-label>Men#</mat-label>
+                    <mat-error *ngIf="verticalForm.controls?.mens?.errors?.required">Please enter men</mat-error>
+                    <mat-error *ngIf="verticalForm.controls?.mens?.errors?.pattern">Men should be numeric </mat-error>
+                    <mat-error *ngIf="verticalForm.controls?.mens?.errors?.maxLength">Please enter valid men</mat-error>
+                    <input formControlName="mens" matInput maxlength="4">
+
+
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="column wrap" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                <div>
+                  <mat-form-field appearance="outline" style="width:100%">
+                    <mat-label>Department</mat-label>
+                    <mat-error *ngIf="verticalForm.controls?.department?.errors?.required ">Please enter department name</mat-error>
+                    <select formControlName="department" placeholder="Department" matNativeControl required>
+                      <option value="solids">Solids</option>
+                      <option value="Packaging">Packaging</option>
+
+                    </select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="column wrap" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                <div>
+                  <mat-form-field appearance="outline" style="width:100%">
+                    <mat-label>Building</mat-label>
+                    <mat-error *ngIf="verticalForm.controls?.building?.errors?.required">Building name is required</mat-error>
+                    <mat-error *ngIf="verticalForm.controls?.building?.errors?.pattern">Please enter valid building name</mat-error>
+                    <input formControlName="building" matInput placeholder="Ashirwad Apartemnt" required>
+
+
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="column wrap" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                <div>
+                  <mat-form-field appearance="outline" style="width:100%">
+                    <mat-label>Floor No</mat-label>
+                    <mat-error *ngIf="verticalForm.controls?.floor?.errors?.required">floor is required</mat-error>
+                    <mat-error *ngIf="verticalForm.controls?.floor?.errors?.pattern">floor number should be numeric</mat-error>
+                    <mat-error *ngIf="verticalForm.controls?.floor?.errors?.maxLength">Floornumber should be 2 digits </mat-error>
+                    <input formControlName="floor" matInput placeholder="2" maxlength="2" required>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="column wrap" style="margin-bottom:1em;" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                <div>
+                  <mat-form-field appearance="outline" style="width:100%">
+                    <mat-label>No. of Locks</mat-label>
+                    <mat-error *ngIf="verticalForm.controls?.noofflocks?.errors?.required">No.of locks required </mat-error>
+                    <mat-error *ngIf="verticalForm.controls?.nooflocks?.errors?.pattern">locks should be in numerics</mat-error>
+                    <mat-error *ngIf="verticalForm.controls?.nooflocks?.errors?.maxLength">locks should be 50 characters</mat-error>
+                    <input formControlName="nooflocks" matInput placeholder="22" maxlength="50" required>
+
+
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="column wrap" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                <div style="height:65px;margin-bottom:3em">
+
+                  <textarea formControlName="notes" style="border:1px solid lightgrey;height:80px;background-color:white;border-radius: 5px;" matInput>Write information here</textarea>
+                  <!-- <mat-error *ngIf="verticalForm.controls?.notes?.errors?.required">Notes are required </mat-error> -->
+                </div>
+                <div fxLayout="column wrap" style="margin-bottom: 1em;border: 1px solid lightgray;border-radius: 5px;" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                  <div>
+                    <div fxLayout="column wrap" fxFlex="80" fxLayoutAlign="center stretch" [fxShow]="true" [fxHide]="false">
+
+                      <input formControlName="uploadimage" matInput placeholder="upload images">
+
+
+                    </div>
+                    <div fxLayout="column wrap" fxFlex="20" fxLayoutAlign="end end" [fxShow]="true" [fxHide]="false">
+
+                      <div fxLayout="row " fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                        <div style="width:100%;">
+
+                          <div style="height:50px" fxLayout="row" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false" (click)="fileInput.click();" matTooltip="Upload">
+                            <input type="file" accept=".png,.jpg,.jpeg" #fileInput style="display:none;" (change)="handleFileInput($event)">
+
+                            <!-- <div fxLayout="column" fxFlex="100" fxLayoutAlign="center center" [fxShow]="true" [fxHide]="false"> -->
+                            <div style="padding:15px;background-color:lightgrey;">Upload</div>
+                            <!-- </div> -->
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div fxLayout="column wrap" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+                  <div style="width:100%;height:60px;border:1px dotted lightgrey">
+                    <img *ngFor="let urls of myFiles" src="{{myFiles}}" style="margin-right:1em;width:30px;height:30px">
+                  </div>
+                </div>
+
+              </div>
+            </mat-card-content>
+
+
+          </mat-card>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

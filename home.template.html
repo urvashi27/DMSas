@@ -1,0 +1,58 @@
+<div fxLayout="column wrap" style="height:100%" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+  <div fxLayout="row " fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false" fxFill [ngStyle]="{&apos;opacity&apos; : spinner ? &apos;0.5&apos; : &apos;1.0&apos;}">
+    <div fxLayout="column " class="side-nav" fxLayoutAlign="space-between start" [fxShow]="true" [fxHide]="false" [class]="!expandNav ? &apos;expand-nav side-nav&apos; : &apos;compress-nav side-nav&apos;">
+      <div fxLayout="column wrap" style="width: 100%;" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+        <div fxLayout="column wrap" style="width:100%" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+          <div fxLayout="row " style="height : 64px ; border-bottom: 1px solid gray;" fxLayoutAlign="space-between center" [fxShow]="true" [fxHide]="false">
+            <div fxLayout="row wrap" style="padding-left:15px;" fxLayoutAlign="center center" [fxShow]="true" [fxHide]="false"><img imgSrc="Web/logo-icon.png" [fxHide]="!expandNav" [fxShow.lt-sm]="true" width="25"><img imgSrc="Web/ingredio-logo.png" height="30" [fxShow.lt-sm]="false" *ngIf="!expandNav" width="125"></div>
+            <div fxLayout="row wrap" style="background: #30343E; height:100%;" fxLayoutAlign="center center" [fxShow]="true" [fxHide]="false" [fxShow.lt-md]="false">
+              <mat-icon style="color:  #838487;" class="pointer" (click)="expandNav = !expandNav" [ngClass]="{&apos;rotate180&apos; : expandNav , &apos;rotate-back&apos; : !expandNav } ">chevron_left</mat-icon>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="column " style="width:100%" class="font-12" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+          <div fxLayout="row wrap" style="width:100%;height:50px;" class="pointer sidenav-list" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false" routerLinkActive="active-side-navlist" routerLinkActiveOptions="{exact: false}">
+            <div fxLayout="column wrap" style="outline:none" fxFlex="{{expandNav ? 100 : 20}}" fxLayoutAlign="center center" [fxShow]="true" [fxHide]="false" [routerLink]="&apos;/home/documents&apos;">
+              <mat-icon>description</mat-icon>
+            </div>
+            <div fxLayout="column wrap" style="outline: none;" fxFlex="70" fxLayoutAlign="center start" [fxShow]="true" [routerLink]="&apos;/home/dashboard&apos;" *ngIf="!expandNav"><span>
+                Dashboard</span></div>
+          </div>
+        </div>
+        <div fxLayout="column " style="width:100%" class="font-12" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+          <div fxLayout="row wrap" style="width:100%;height:50px;" class="pointer sidenav-list" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false" routerLinkActive="active-side-navlist" routerLinkActiveOptions="{exact: false}">
+            <div fxLayout="column wrap" style="outline:none" fxFlex="{{expandNav ? 100 : 20}}" fxLayoutAlign="center center" [fxShow]="true" [fxHide]="false" [routerLink]="&apos;/home/documents&apos;">
+              <mat-icon>description</mat-icon>
+            </div>
+            <div fxLayout="column wrap" style="outline: none;" fxFlex="70" fxLayoutAlign="center start" [fxShow]="true" [routerLink]="&apos;/home/procedure&apos;" *ngIf="!expandNav"><span>
+                Procedures</span></div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="column " style="border-top: 1px solid #D0D0D0; background-color: #3d424e;" fxLayoutAlign="space-between stretch" [fxShow]="false" [fxHide]="false">
+        <div fxLayout="row " fxLayoutAlign="center stretch" [fxShow]="true" [fxHide]="false">
+          <div fxLayoutAlign="center center" fxFlex="90" fxLayout="column">
+            <p class="font-9" style="color:#d0d0d0;text-align:center;">Terms and Conditions | Privacy and Policies</p>
+            <p class="font-9" style="color:#8B90A0;text-align:center;">Copyright &#xA9; 2019 The INGREDION and INGREDION IDEA LABS <br>{{version || &apos;&apos;}}</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="column " class="toolbar " fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false" [class]="!expandNav ? &apos;expand-toolbar &apos; : &apos;compress-toolbar &apos;">
+      <div fxLayout="row wrap" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+        <mat-toolbar class="toolbar">
+          <div fxLayout="row " fxFlex="100" fxLayoutGap="1em" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+            <div fxLayout="column wrap" class="white-color" fxFlex="50" fxLayoutAlign="end end" [fxShow]="true" [fxHide]="false"></div>
+            <div fxLayout="column wrap" fxFlex="50" fxLayoutAlign="end end" [fxShow]="true" [fxHide]="false">
+              <mat-icon class="pointer" matTooltip="Login">power_settings_new</mat-icon>
+            </div>
+          </div>
+        </mat-toolbar>
+      </div>
+      <div fxLayout="row " style="overflow:auto; height:100%;background-color: #d3d3d33d;" fxLayoutAlign="start stretch" [fxShow]="true" [fxHide]="false">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
